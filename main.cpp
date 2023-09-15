@@ -6,6 +6,7 @@
 #include "reglafalsa.h"
 #include "newtonRaphson.h"
 #include "secante.h"
+#include "muller.h"
 
 using std::cin;
 using std::cout;
@@ -15,6 +16,7 @@ using raices::biseccion;
 using raices::reglafalsa;
 using raices::newtonRaphson;
 using raices::secante;
+using raices::muller;
 
 
 /**
@@ -42,6 +44,12 @@ void metodo_newtonRaphson(string str_f, string str_df, string str_d2f);
 void metodo_secante(string str_f);
 
 
+/**
+* @brief Metodo 5.
+*/
+
+void metodo_muller(string str_f);
+
 int main () {
 	//Caso
 	//string str_f = "e^~x - ln(x)";
@@ -54,7 +62,8 @@ int main () {
 	//metodo_secante("e^~x - ln(x)");
 	//metodo_secante("x^3 + 4*(x^2) - 10");
 	//metodo_secante("e^~x + x^2 - 2");
-	metodo_newtonRaphson("(x-3)*(x-1)*(x-1)","3*(x^2) - (10*x) + 7", "6*x - 10");
+	//metodo_newtonRaphson("(x-3)*(x-1)*(x-1)","3*(x^2) - (10*x) + 7", "6*x - 10");
+	metodo_muller("e^~x - ln(x)");
 	return 0;
 }
 
@@ -155,6 +164,33 @@ void metodo_secante(string str_f){
 	
 	//Calcular la solucion
 	solucion sol = sec.calcular(x0,x1,tol,n);
+	//Imprimir
+	sol.imprimir();
+}
+	
+void metodo_muller(string str_f){
+	double x0,x1,x2,tol;
+	int n;
+	
+	cout << "Metodo de Muller" << endl;
+	cout << "Funcion a evaluar: " << str_f << endl;
+	cout << "Ingrese la primera aproximacion x0: ";
+	cin >> x0;
+	cout << "Ingrese la segunda aproximacion x1: ";
+	cin >> x1;
+	cout << "Ingrese la tercera aproximacion x2: ";
+	cin >> x2;
+	cout << "Ingrese la tolerancia (en porcentaje): ";
+	cin >> tol;
+	cout << "Ingrese el maximo numero de iteraciones: ";
+	cin >> n;
+	//Crear una instancia de muller pasando 
+	//la funcion como parametro
+	
+	muller mull(str_f);
+	
+	//Calcular la solucion
+	solucion sol = mull.calcular(x0,x1,x2,tol,n);
 	//Imprimir
 	sol.imprimir();
 }

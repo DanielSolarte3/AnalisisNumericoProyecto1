@@ -72,7 +72,7 @@ namespace raices {
 				
 				if(es_cero(f(p))){
 					sol.raiz=p;
-					//sol.iteraciones = i;
+					
 					return sol;
 				}
 				//Paso 5.
